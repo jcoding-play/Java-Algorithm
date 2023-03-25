@@ -2,6 +2,10 @@
 코딩 테스트 대비 알고리즘 문제 풀이
 
 # 📝  알고리즘 유형 별 분류 - 백준
+## - [Dynamic Programming](https://github.com/jcoding-play/Java-Algorithm/tree/main/src/baekjoon/DP)
+
+## - [Backtracking](https://github.com/jcoding-play/Java-Algorithm/tree/main/src/baekjoon/backtracking)
+
 ## - [BFS](https://github.com/jcoding-play/Java-Algorithm/tree/main/src/baekjoon/bfs)
 
 ## - [Binary-Search](https://github.com/jcoding-play/Java-Algorithm/tree/main/src/baekjoon/binary_search)
@@ -13,6 +17,8 @@
 ## - [Priority-Queue](https://github.com/jcoding-play/Java-Algorithm/tree/main/src/baekjoon/priority_queue)
 
 ## - [Recursion](https://github.com/jcoding-play/Java-Algorithm/tree/main/src/baekjoon/recursion)
+
+## - [Sorting](https://github.com/jcoding-play/Java-Algorithm/tree/main/src/baekjoon/sorting)
 
 ## - [String](https://github.com/jcoding-play/Java-Algorithm/tree/main/src/baekjoon/string)
 
