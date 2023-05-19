@@ -37,9 +37,9 @@ public class 사탕게임 {
             if (exceedRange(nx, ny)) continue;
             if (isCandyDifferent(map, x, y, nx, ny)) {
                 changeCandy(map, x, y, nx, ny);
+                answer = Math.max(answer, getMaxCount(map));
+                changeCandy(map, nx, ny, x, y);
             }
-            answer = Math.max(answer, getMaxCount(map));
-            changeCandy(map, nx, ny, x, y);
         }
     }
 
