@@ -3,6 +3,8 @@ package baekjoon.implementation;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 
 public class 판화 {
 
@@ -10,6 +12,14 @@ public class 판화 {
     static char[][] map;
     static int[] dx = {1, 0, -1, 0};
     static int[] dy = {0, 1, 0, -1};
+    static final Map<Character, Integer> classifier = new HashMap<>();
+
+    static {
+        classifier.put('R', 0);
+        classifier.put('D', 1);
+        classifier.put('L', 2);
+        classifier.put('U', 3);
+    }
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -39,36 +49,22 @@ public class 판화 {
     }
 
     private static void move(int[] currentPos, char move) {
-        int x = currentPos[0];
-        int y = currentPos[1];
-        int nx = 0;
-        int ny = 0;
-
-        if (move == 'R') {
-            nx = x + dx[0];
-            ny = y + dy[0];
-            if (exceedRange(nx) || exceedRange(ny)) return;
-        }
-        if (move == 'D') {
-            nx = x + dx[1];
-            ny = y + dy[1];
-            if (exceedRange(nx) || exceedRange(ny)) return;
-        }
-        if (move == 'L') {
-            nx = x + dx[2];
-            ny = y + dy[2];
-            if (exceedRange(nx) || exceedRange(ny)) return;
-        }
-        if (move == 'U') {
-            nx = x + dx[3];
-            ny = y + dy[3];
-            if (exceedRange(nx) || exceedRange(ny)) return;
-        }
+        int[] nextPos = getNextPos(currentPos, move);
+        if (exceedRange(nextPos)) return;
 
         changeMap(currentPos, move);
-        currentPos[0] = nx;
-        currentPos[1] = ny;
+        currentPos[0] = nextPos[0];
+        currentPos[1] = nextPos[1];
         changeMap(currentPos, move);
+    }
+
+    private static int[] getNextPos(int[] currentPos, char move) {
+        int[] nextPos = new int[2];
+        int index = classifier.get(move);
+
+        nextPos[0] = currentPos[0] + dx[index];
+        nextPos[1] = currentPos[1] + dy[index];
+        return nextPos;
     }
 
     private static void changeMap(int[] currentPos, char move) {
@@ -94,7 +90,7 @@ public class 판화 {
         }
     }
 
-    private static boolean exceedRange(int value) {
-        return value < 0 || value >= N;
+    private static boolean exceedRange(int[] pos) {
+        return pos[0] < 0 || pos[0] >= N || pos[1] < 0 || pos[1] >= N;
     }
 }
