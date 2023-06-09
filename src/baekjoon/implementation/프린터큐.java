@@ -56,7 +56,7 @@ public class 프린터큐 {
             Paper paper = queue.poll();
             Paper mostImportantPaper = compareWith(paper);
 
-            if (isNotMostImportantPaper(paper, mostImportantPaper)) continue;
+            if (paper.isNotSame(mostImportantPaper)) continue;
 
             if (paper.isMatch(index)) {
                 return count;
@@ -73,10 +73,6 @@ public class 프린터큐 {
             }
         }
         return paper;
-    }
-
-    private static boolean isNotMostImportantPaper(Paper paper, Paper other) {
-        return !paper.equals(other);
     }
 
     private static void printResult() {
@@ -98,6 +94,10 @@ public class 프린터큐 {
 
         public boolean isMatch(int index) {
             return this.index == index;
+        }
+
+        public boolean isNotSame(Paper paper) {
+            return !this.equals(paper);
         }
 
         @Override
