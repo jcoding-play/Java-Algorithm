@@ -3,8 +3,6 @@ package baekjoon.string;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
 
 public class 비슷한단어 {
 
@@ -26,50 +24,48 @@ public class 비슷한단어 {
 }
 
 class WordAnalyzer {
-    private final Map<Character, Integer> analysis;
+    private final String word;
+    private final int[] count;
 
     public WordAnalyzer(String word) {
-        this.analysis = analyze(word);
+        this.word = word;
+        this.count = analyze(word);
     }
 
-    protected Map<Character, Integer> analyze(String word) {
-        Map<Character, Integer> analysis = new HashMap<>();
+    protected int[] analyze(String word) {
+        int[] count = new int[26];
 
         for (char letter : word.toCharArray()) {
-            analysis.put(letter, analysis.getOrDefault(letter, 0) + 1);
+            count[letter - 'A']++;
         }
 
-        return analysis;
+        return count;
     }
 
     public boolean isSimilarWord(String word) {
-        Map<Character, Integer> analysis = new HashMap<>(this.analysis);
+        int[] count = this.count.clone();
 
-        int count = 0;
-        for (char character : word.toCharArray()) {
-            if (analysis.containsKey(character) && analysis.get(character) > 0) {
-                count++;
-                analysis.put(character, analysis.get(character) - 1);
+        int cnt = 0;
+        for (char letter : word.toCharArray()) {
+            if (count[letter - 'A'] > 0) {
+                cnt++;
+                count[letter - 'A']--;
             }
         }
 
-        return classifyResult(word, analysis, count);
+        return classifyResult(word, cnt);
     }
 
-    private static boolean classifyResult(String word, Map<Character, Integer> analysis, int count) {
-        if (analysis.size() == word.length()) {
-            if (analysis.size() == count || analysis.size() - 1 == count) {
-                return true;
-            }
-        }
-        if (analysis.size() == word.length() - 1 && word.length() - 1 == count) {
+    private boolean classifyResult(String word, int cnt) {
+        if (this.word.length() == word.length() && (this.word.length() == cnt || this.word.length() - 1 == cnt)) {
             return true;
         }
-        if (analysis.size() == word.length() + 1 && word.length() == count) {
+        if (this.word.length() == word.length() - 1 && word.length() - 1 == cnt) {
             return true;
         }
-
+        if (this.word.length() == word.length() + 1 && word.length() == cnt) {
+            return true;
+        }
         return false;
     }
-
 }

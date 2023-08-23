@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class WordAnalyzerTest {
@@ -19,11 +17,11 @@ class WordAnalyzerTest {
 
     @Test
     void analyze() {
-        Map<Character, Integer> analysis = wordAnalyzer.analyze("GOOD");
+        int[] count = wordAnalyzer.analyze("GOOD");
 
-        assertEquals(1, analysis.get('G'));
-        assertEquals(2, analysis.get('O'));
-        assertEquals(1, analysis.get('D'));
+        assertEquals(1, count['G' - 'A']);
+        assertEquals(2, count['O' - 'A']);
+        assertEquals(1, count['D' - 'A']);
     }
 
     @ParameterizedTest
