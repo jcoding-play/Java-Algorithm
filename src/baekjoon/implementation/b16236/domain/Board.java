@@ -2,10 +2,7 @@ package baekjoon.implementation.b16236.domain;
 
 import baekjoon.implementation.b16236.utils.Constants;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class Board {
     private static final int[] DIRECTION_X = {1, 0, -1, 0};
@@ -21,16 +18,23 @@ public class Board {
     }
 
     protected Point findSharkPoint(int[][] board) {
-        int n = board.length;
+        for (int x = 0; x < board.length; x++) {
+            Optional<Point> sharkPoint = checkSharkPoint(board, x);
 
-        for (int x = 0; x < n; x++) {
-            for (int y = 0; y < n; y++) {
-                if (board[x][y] == Constants.SHARK_NUMBER) {
-                    return new Point(x, y);
-                }
+            if (sharkPoint.isPresent()) {
+                return sharkPoint.get();
             }
         }
         throw new IllegalArgumentException("상어가 존재하지 않습니다.");
+    }
+
+    private Optional<Point> checkSharkPoint(int[][] board, int x) {
+        for (int y = 0; y < board.length; y++) {
+            if (board[x][y] == Constants.SHARK_NUMBER) {
+                return Optional.of(new Point(x, y));
+            }
+        }
+        return Optional.empty();
     }
 
     public List<Point> findEdibleFishPoints(int sharkSize) {
